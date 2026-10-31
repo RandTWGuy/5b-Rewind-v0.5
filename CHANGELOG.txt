@@ -1,0 +1,283 @@
+CHANGELOG FOR 5B REWIND
+
+TODO (ranked in order of importance and ease):
+
+- Fix autoplay bug where autoplay does not stop after reaching the end (and defeating the ender dragon hahaha is that funny)
+
+- Use KorZen's API
+
+- Auto-update once all imgs have been pre-loaded.
+
+- Add other categories.
+
+2026-10-28:
+Work Time: 0.5hrs
+- Added my new run (14:51.917 on 2026-10-28)
+- Fixed off-by-one error on the ranking numbers
+- Add important note that this repo will be forked to accommodate near-future API fetch and data refactoring.
+
+2026/10/23:
+Work Time: 0.5hrs
+- Added my new run (15:05.733 on 2026-10-23)
+
+2026/10/22:
+Work Time: 1 min lol
+- Added Eyadmation's data! (1 run)
+
+2026/10/20:
+Work Time: 1 min lol
+- Added my new run (15:08.033 on 2026-10-20)
+- Draw ranking numbers earlier to not overlap w/ pfp
+
+2026/10/19:
+Work Time: 1 min lol
+- Added my new run (15:47.333 on 2026-10-19)
+
+2026/10/18:
+Work Time: 0.5hrs
+- Added my new pfp
+
+2026/10/17:
+Work Time: 0.5hrs
+- Tried adding different categories but things went badly.
+- Added my new run (16:02.217 on 2026-10-17).
+
+2026/10/16:
+Work Time: 1hr
+- Added era text colors in ErasData.
+- Prevent era text going off screen by left/right textAlign-ing the first and last eras.
+- Removed the era text off-screen protector of the first era, b/c its so long. Yes this does make it unadaptable to non-5b stuff, but this is called 5b Rewind wdym unadaptable.
+- Added line break before erasCanvas. Fixes bug where, if the browser screen is shrunk, erasCanvas moves all over the place.
+- Removed erasCanvas' border. This was supposed to make the slider and erasCanvas line up, but there is still a 1-2 pixel difference. Probably rounding errors, if it's not the border's fault. If it is rounding errors, then I can do nothing.
+
+2026/10/15:
+Work Time: 1hr
+- Made era block and era text different colors. Originally wanted to fix this last night but forgot.
+- Fixed a typo that made the NumKor battle start exactly one year earlier than was supposed to.
+- Offset odd and even-numbered (0-indexed) era text. Odd on top, even on bottom. Reduces text overlap.
+- Reordered the eras drawing order. First draws all era blocks, then all text. Should fix the problem of text getting overlaid by era blocks.
+- Added Yarik's new run. A 12:22 earlier today.
+
+2026/10/14:
+Work Time: 1.5hrs
+- Added updateEras(timestamp). It only calculates the current era index.
+- Added preCalcEraWidth(). Pre-calculates width of eras on the screen. Only runs once at the very start.
+- Added drawEras(currIndex). Takes in the current era index and draws the era timeline. The current era's text's font is bigger.
+- Fixed a ton of bugs caused by today's development.
+
+2026/10/13:
+Work Time: 0.5hrs
+- The test is still ongoing. More work time coming soon!
+- Added erasCanvas, independent from mainCanvas, as the drawing board for the upcoming Time Eras feature.
+- Github Copilot can't even remove indents without removing other newlines, even when I explicitly prompt it to ONLY REMOVE INDENTS. Microsoft, why is your AI so stupid.
+- Added ErasData, an array in data.js that keeps track of time-independent era data. It also has era colors for future drawing onto erasCanvas.
+
+2026/10/12:
+Work Time: 0.5hrs
+- I can't spend too much time today b/c I have a test tommorow.
+- Added WR-holder-data displayer between slider and canvas.
+
+2026/10/11:
+Work Time: 2hrs
+- Spent a bunch of time thinking (on paper) how to fix the timeout issue.
+- Attempted Fix: introduce new bool var inTimeout. Resets to false everytime autoplay re-pressed. New timeout only scheduled if not inTimeout. THIS FAILED BECAUSE SETTIMEOUT ONLY RUNS AFTER ALL SYNC STUFF, AND THE WHILE LOOP KEEPS RUNNING (JUST NOT CALLING SETTIMEOUT B/C INTIMEOUT IS TRUE) SO THE PAGE CRASHES.
+- Attempted Fix #2: Recursive setTimeout. Each setTimeout sets a delay, afterwards it calls itself. Repeat until autoplay stops. That also didn't work, but idk why. (Actually, it will work, but in another hour)
+- Github Copilot is so arrogant today. It speaks in a salesman pitch trying to convince me that their code is flawless when its riddled with bugs.
+- The canvas has to be updated after each autoplay step; Copilot lied to me about this. GRRR
+- AFTER ALL THAT, AUTOPLAY IS STILL BROKEN. AT LEAST IT DOESN'T CRASH, BUT IDK WHY IT IS STILL BROKE.
+- Um actually, slider.value and slider.step are strings for some weird reason, so I have to turn them into Numbers. I was today years old when I learned that.
+- After fixing the typos, the AUTOPLAY IS ACTUALLY WORKING !!!!! there are still bugs but im happy
+- KorZen DMed me, saying that all non-former-PR runs have been rejected from SRC. Thanks a lot!
+- Changed speed selector options to 0.25x, 0.5x, 0.75x, 1x, 1.5x, 2x, and 3x speeds. 1x speed is 20 IRL days in one Rewind second, i.e. (1:1728000 ratio)
+
+
+2026/10/10:
+Work Time: 2hrs
+- Yariktopikser suggested that I add other non-any% categories next. However, I have to choose between data structures. If FiveBerData becomes an object of categories, the same player can have different pfps in different categories, which is weird; if it instead becomes a list of player data, each a list of player name, run data, and pfp, and the run data is an object of category data, then players with runs in one category but not another might break the code, since it assumes at least one historical run per player. I lean towards the first approach. But likely not very soon.
+- Started working on the autoplay feature. Likely for the rest of v4.0.
+- Added Play/Pause buttons into HTML and JS. Not functionable yet.
+- Added Autoplay Speed Selector. Has speeds of 0.2x, 0.5x, 1x, 1.5x, 2x, and 3x. 1x is 10 IRL days in 1 Rewind second.
+- Made Play/Pause buttons switch states every time pressed.
+- Tried implementing autoplay. It failed and crashed the page. ( (simplified) Reason: I implement it with a while that keeps running until autoplay is turned off. Inside the while is a setTimeout, which waits some milliseconds based on the speed selector, then advances the slider by one day. Apparently the while moves on to the next iteration immediately, it doesn't wait for the setTimeout to finish, and piles up trillions of setTimeouts until an OOM crashes the page. So I reverted all autoplay functionality.)
+- Missed the good ol' days with Python when wait() actually pauses the entire thing and waits. JS is tormenting me but maybe its b/c Python is purposefully uncomplicated.
+
+2026/10/09:
+Work Time: 4.5hrs
+- Centered the logo. (I forgot to calculate the margin size yesterday)
+- Re-drew the logo based on Yariktopikser's suggestions. Based on HTML5b's favicon, special thanks to coppersalts for that.
+- Changed sentinel 'NO RUN YET' from 1 hour to 10, and added logic in draw() to do is-hour-long-run checks. Another TODO complete! (Note: I don't want to teach data.js how to differentiate between hh:mm:ss.xxx and mm:ss.xxx, so I use (m)mm:ss.xxx instead)
+- Added migue2763's data! (4 runs; WR31)
+- Added bandi72006's data! (1 run; WR32)
+- Added kth11211's data! (1 run; WR33)
+- Added imaperson1060's data! (3 runs; 4 runs but one isn't a PR; WR34)
+- Added TheIsraeliOSCFan's data! (1 run; shortened to IsraeliOSCFan; WR35)
+- Added maztik's data! (1 run; WR36)
+- Added Zelo101's data! (3 runs; WR37; bro got a SUB-30 IN FEB 2019 and is not Meester?!?!?)
+- Added PaperMarioParty's data! (4 runs; WR38; and first recorded hour-long run! Even though he got a PR later that day so the hour-long run won't be shown.)
+- Added Pokewill's data! (1 run; WR39)
+- Added foreverfractal117's data! (3 runs; WR40; feat. the second ever logged hour-long run and the first to remain undefeated by the same player for the day)
+- Added gamesfun123's data! (2 runs; WR41)
+- Added anima52719's data! (3 runs; WR42; lowest-ranking player with more than one run!
+- Added Andyman620's data! (1 run; WR43)
+- Added Chanatip's data! (1 run; WR44)
+- Added TiedDice's data! (1 run; WR45)
+- Added dioramakoob's data! (1 run; WR46)
+- Added carykh's data! (1 run; WR47; THANKS FOR MAKING THE BEST GAME IN THE WORLD CARY)
+- Added Turdman600's data! (1 run; WR48; hour-long #3)
+- Added Sonicboom363's data! (1 run; WR49; hour-long #4)
+- OMG I FINALLY HAVE ALL 250 RUNS THIS IS SO INSANE AHHHHHHHHH
+- Edited intro text.
+- Released v0.4.0! The Trip Down Memory Lane Update is here!
+- Tied PR for longest work time in a day and PR for longest changelog entry. lol.
+
+2026/10/08:
+Work Time: 2hrs
+- Added mellohihellohi's data! (1 run; WR26)
+- Added Phant0mInfinity's data! (4 runs; WR27)
+- Added WatermelonPinTourmaline's data! (1 run; shortened to WatermelonPin; WR 28)
+- Added JookDoobs' data! (2 runs; WR 29)
+- Added Hyperblaze's data! (1 run; WR 30)
+- This region has so many one-runners that could be good but don't run often. And it's super competitive: WR27 and WR30 are SIX seconds apart! What!
+- Created the logo!(Process: https://www.youtube.com/watch?v=FoX6uk71lno)
+- Added code for the logo in script.js. That's another (now former) TODO complete!
+- Released v0.3.2!
+
+2026/10/07:
+Work Time: 1.5hrs
+- I think the bug with the semitransparent shadow, after some testing, only appears when the slider is moving backwards and a newly-appeared player disappears. So then it's likely a canvas-clearing problem.
+- I tried clearing the entire canvas, then adding the light-blue background, then adding the blocks. And that fixed the bug.
+- Actually the bug is because I forgot to reset globalAlpha after drawing the rank numbers. How stupid of me. Clearing the canvas wasn't needed at all! Bug--FIXED!
+- Standardized the placement of globalAlphas. Now, they are only set/reset before ctx.bla.
+- Re-added draw(). It does not fiddle with curr_PRs and other arrays now; it only takes in index, name, PR time, and pfp-bool. This should hopefully kill all issues that are local/global and deepcopy-related.
+- I FINALLY ADDED MEESTERTWEESTER'S DATA! (21 runs; and also the note about ms-less times)
+- Released v0.3.1!
+
+2026/10/06:
+Work Time: 3.5hrs
+- Edit README's AI Usage Note and Special Thanks
+- Removed rank numbers for players without runs yet
+- Tried "Moving the block-drawing code to another function in script.js, draw(). Removing blocks completely for run-less players; now they don't show up! We only need a single if statement before executing draw(); no need to check if the player has a run or not all the time anymore!". IT FAILED UTTERLY AND COMPLETELY AND CLOVERDROP HAS SEVEN CLONES. WENT CRAZY AND FREAKED OUT FOR AN HOUR THEN DELETED ALL CHANGES AND RESETTED EVVERYTHING TO WHAT IT WAS THIS MORNING. SO NOW DRAW() IS DEAD AND I LOVE IT.
+- Organized drawing-related has-player-run-yet logic, moving all of them into a giant if statement. In the if statement is all drawing. (Also, the canvas is now cleared every update(), so that's cool) This means that all run-less players don't have blocks. That's one TODO complete!
+- There's a weird bug: right before a new player appears, a semitransparent shadow of the last-placer will appear on the next block for 1-2 days. Like how. idk why this happens at all. Shoutout to my brother for finding this bug during playtesting.
+- Released v0.3.0!
+
+2026/10/05:
+Work Time: 1hr
+- Added Yarik's new run. (12:43 on 2026-10-04)
+- Added centered semisolid rank numbers on every block.
+- Moved Note to bottom of page.
+
+2026/10/04:
+Work Time: 1.5hrs
+- Sorted FiveBerData by player's first run's time. This fixes the unintended behavior of run-less players' blocks moving around when a player does their first run.
+- Added Matvei's data! (1 run)
+- Increased canvas height from 390 to 510 px. Now it can fit 6x4 = 24 runners.
+- Added The_Gamer_Pug's data! (6 runs; called Gamer_Pug b/c the og name is too long)
+- Fixed CloverDrop's data. I swapped two same-day runs.
+- Added yyy15err's data! (10 runs)
+- Added calzcool's data! (6 runs)
+- Added Fma435's data! (2 runs; there are 3 runs on SRC, but one of them is not a Former or Current PR)
+- Added iPackle's data! (1 run)
+- Added DetachedHat1799's data! (1 run; called DetachedHat b/c the og name is too long)
+- Released v0.2.5!
+
+2026/10/03:
+Work Time: 1hr
+- Added DraYoshi's pfp
+- Made canvas_x and canvas_y auto-update with the canvas.
+- Changed canvas height from 750 to 390. This suits computer screens better but makes it terrible for iPhone. I mean, 5b is a PC/Desktop browser game, so why wouldn't you be using a computer?
+- Made canvas only draw the amount of players that actually fit, so don't waste time drawing out-of-bounds players. (Now the canvas can only fit 18 people, which some will call selfish b/c I'm 17th in the world, but hey, I don't care)
+- Added MyShuckle's data! (11 runs)
+- Added meanietweezie's data! (6 runs)
+- Updated Yariktopikser's pfp
+- Added CloverDrop's data! (9 runs; finally I'm not in last place!)
+- Released v0.2.4!
+
+2026/10/02:
+Work Time: 0.5hrs
+- Added DwarfWizard's data! (16 runs)
+- Released v0.2.3!
+- Added Trevarity's data! (4 runs)
+- Added coppersalts' data! (5 runs)
+- Added MythicalRocket's data! (2 runs)
+
+2026/10/01：
+Work Time: 1.5hrs
+- Re-added Yariktopikser's data in the new format (he's unbanned today)
+- Added Yariktopikser's profile pic.
+- Re-added AntLadder's data in the new format
+- Increased profile pic margin from 0.1 of a block to 0.15 of a block (15 px)
+- Moved player name and time text to the very top/bottom of the block
+- Increased profile pic opacity from 0.6 to 0.8. Doesn't make alot of sense for it to be so transparent after the text moved away.
+- Re-added 1000%'s data in the new format
+- Released v0.2.2 (finally!)
+- Added JJJ's data! (14 runs; the first data-addition in three days; also I love the new format it's 1000% better than UNIX and raw ms)
+- Added ItsMarker's data! (4 runs)
+- Added Ader's data! (4 runs)
+
+2026/9/30:
+Work Time: 2.5hrs
+- Github is normal again! Hooray!
+- KorZen's profile pic is on top of whoever's last place. (bug)
+- Fixed the bug by pre-loading profile pics (This causes another "bug" where the pics don't show up until after the slider is moved, but I'm not sure what I think about that yet -- might make it intended behavior sometime in the future)
+- Added Numbly and 1000%'s profile pics.
+- Made FiveBerData more human-readable & maintainable & debuggable, by making the array first hold yyyy-mm-dd and mm:ss.xxx, before changing it to UNIX and raw ms w/ code. This means that I have to comment out all data in the old format.
+- Re-added me, DraYoshi, Numbly, and KorZen's data in the new format.
+
+2026/9/29:
+Work Time: 1hr
+- Added KorZen's profile pic & the profile pic code
+- Github is weird today; I can't re-deploy my page, so the page is stuck in 9/28
+
+2026/9/28: 
+Work Time: 2hrs
+- OMG I literally just woke up and KorZen DMed me saying that he'll share this on the discord? Thanks a googol!
+- Released v0.2.1!
+- Added 5 of Meester's runs. (Not all)
+- Added AntLadder's data! (18 runs)
+- Added Yariktopikser's new run
+- Banned Yariktopikser b/c he got a sub-6 Match (for a prank/joke, ig)
+- Revised README.md
+- Added 1000%'s data! (13 runs)
+
+2026/9/27:
+Work Time: 1.5hr
+- Added Yariktopikser's data! (1 run)
+- Made default slider date today instead of 2018-11-02. (Finally!)
+- Released v0.1.3
+- Wrote the README file!
+- Moved the FiveBerData array-in-array-in-array-in-array to another file, data.js.
+- Fixed a bug that the above caused.
+
+
+2026/9/26:
+Work Time: 4hrs
+- Added DraYoshi's data! (5 runs)
+- Fixed bug/unintended behavior where the blocks do not show up until you move the slider, by loading the main function once before the slider move detection. This caused even more bugs, which I also fixed.
+- Fixed bug with DraYoshi's data (I forgot to close an array)
+- Displays formatted mm:ss:xxx time instead of milliseconds. If no run yet, shows "NO RUN YET".
+- Ensured leading zeros in the sec and ms fields of the time. Fixed a bug with this's implementation.
+- Sorted the runs by time instead of player name. (This took so long)
+- Added colors for 1st, 2nd, 3rd placers.
+- Added Numbly's data! (17 runs)
+- Added Korzen's data! (26 runs; srsly this took up the most boring 30 minutes in my life why do you have so many runs)
+- Released v0.1.2
+
+2026/9/25:
+Work Time: 4.5hrs
+- Renamed BFDIA 5b time hopper to 5b Rewind.
+- Created a script.js file outside of index.html. This is where most of the logic goes.
+- Added a date slider from 2018-11-02 to today. But it has some time zone issues.
+- Released v0.0.2
+- Added the complicated list FiveBerData
+- Made a PR-decider based on the time and FiveBerData. Defaults to 1hr if the player hasn't ran the game back then yet.
+- Fixed a lot of bugs and typos the PR-decider caused.
+- Added the player's PR, as of the date selected to the player's block.
+- Released v0.1.1.
+
+
+2026/9/24:
+Work Time: 3hrs
+- Learned a little JS(I already know HTML and CSS).
+- Made a program that displays 5b-ers on the 750x750 canvas according to a JS array of 5b-ers. This display also calculates how many 5b-ers can fit in one row, and automatically puts them onto the next row when the current one is filled up.
+- Released v0.0.1
