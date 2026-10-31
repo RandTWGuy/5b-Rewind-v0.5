@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      ARTG's BFDIA 5b Rewinder!
+    </title>
+  </head>
+  <body>
+    <h1>5b Rewind!</h1>
+	<!-- Intro -->
+	
+    This is ARandomTaiwaneseGuy(<a href = https://www.youtube.com/@ARandomTaiwaneseGuy>YT</a>)/
+	  yuGesenawiaTmodnaRA(<a href = https://www.speedrun.com/users/yuGesenawiaTmodnaRA>speedrun.com</a>)/
+	  RandTWGuy(Github)'s <a href = "https://korzen10.github.io/HTML5blazit/" >BFDIA 5b</a> Rewind-er!
+	
+    <hr>
+	
+    This can rewind time to any day in 5b speedrunning history and show the leaderboard at the time!
+	
+    <br>
+	
+    Displayed on a 2D grid leaderboard, every runner in the top 24 is shown, alongside profile pics and rank number! Slide the slider and watch historical events unfold, from the first ever run to KorZen v. AntLadders, from the infamous 9:51 WR to the rise of Numbly!
+	
+	<hr>
+	
+	<b>Still in testing phase! If you wish to add or correct your info, DM me on <a href = "https://www.speedrun.com/users/yuGesenawiaTmodnaRA">speedrun.com</a></b>
+
+	<br>
+	<b>IMPORTANT NOTE: MORE UPDATES, OTHER THAN NEW RUNS, WILL NOT BE ADDED. A MAJOR DATA REFACTORING WILL TAKE PLACE, AND I WILL (WITH KORZEN'S HELP) ADD API AUTO-FETCH. THAT WILL BE HARD AND HAVE A LOT OF BUGS; SO I WILL FORK THIS REPO AND DO IT ELSEWHERE.</b>
+    <hr>
+	<b>Slide this slider to change the date! The canvas will display the Any% RTA PRs of each player at that date.</b>
+	<hr>
+	
+	<!-- The label for the slider -->
+  	<label for = "dateSlider">Date: </label>
+	<!-- Default Date -->
+  	<span id = "dateDisplay">2018-11-02</span>
+  	<br>
+  	<input type="range" id="dateSlider" min = "1541116800000" max = "9999999999999" style="width: 750px;">
+	
+	<br>
+	<!-- Autoplay Play/Pause Button -->
+	<button type = "button" id = "autoplayButton">
+		<span id = "autoplayButtonText">
+			Play
+		</span>
+	</button>
+
+	<!-- Speed Selector Dropdown -->
+	<select id = "autoplaySpeedSelector">
+		<!-- value is [IRL ms per Rewind day] -->
+		<option value = "200"> 0.25x speed (5 days/sec) </option>
+		<option value = "100"> 0.5x speed (10 days/sec) </option>
+		<option value = "67"> 0.75x speed (15 days/sec) </option>
+		<option value = "50" selected> 1x speed (20 days/sec) </option><!-- default -->
+		<option value = "33"> 1.5x speed (30 days/sec) </option>
+		<option value = "25"> 2x speed (40 days/sec) </option>
+		<option value = "17"> 3x speed (60 days/sec) </option>
+	</select>
+	
+	<b>Current WR Holder: <span id = "wrHolderText"> me lol </span> with a time of <span id = "wrHolderTime"> 27:63 </span></b>
+    
+	<!-- Category Selector -->
+	<select id = "categorySelector">
+		<!-- value is category name -->
+		<option value = "anyPercent" selected> Any% </option>
+		<option value = "matchAnyPercent"> Match Segment Any% </option>
+	</select>
+	
+	<br>
+	<!-- Put the canvae here -->
+	<canvas id = "erasCanvas" width = "750" height =  "50" style = "border:0px solid #ccc;"></canvas>
+	<br>
+    <canvas id = "mainCanvas" width = "750" height = "510" style = "border:1px solid #ccc;"></canvas>
+
+	<!-- JS gEBI-ing -->
+    <script defer>
+    // main canvas
+    const canvas = document.getElementById('mainCanvas');
+    const ctx = canvas.getContext('2d');
+
+	//eras canvas
+	const erasCanvas = document.getElementById('erasCanvas');
+	const erasCtx = erasCanvas.getContext('2d');
+    </script>
+
+	<!-- Do the data before the script -->
+	<script src='data.js' defer></script>
+    <script src='script.js' defer></script>
+    
+	<br>
+	 
+	Click <a href = "CHANGELOG.txt">here</a> to view the changelog!
+	
+	<hr>
+	<i>Note 1: Some runs have been timed only to the nearest second, some are only timed to the nearest 100ms, some at 30 fps, and some at 60 fps. I did not retime any runs; all runtimes are based on SRC data. Many early runs by MeesterTweester have not been timed to the millisecond, and so default to 0 milliseconds, etc.</i>
+	<hr>
+	<i>Note 2: Player names are either speedrun.com or Youtube names, based solely on which one I'm more familliar with. (Except for "me, the dev") Speedrun.com usernames are the default, but if I'm more familliar with a player's YT account name, I will use that. For example, Trevarity and ader_farewell are YT account names. Other players, such as JohnsonJensonJason and 1000_percent_not_dead, are referred by nicknames, JJJ and 1000% respectively. </i>
+	
+    <hr>
+    <b>More stuff coming soon! Stay tuned for Time Eras and Autoplay features!</b>
+	<br>
+	Yellow Face: Have you ever wanted to see the entirely of BFDIA 5b speedrunning history together? Then buy our brand new 5b Rewind! It's only one googol payments of zero dollars!
+	<br>
+	Golf Ball: YF, don't you dare ignite a infinity-times-zero situation. That will literally break the fabric of the universe!
+	<br>
+	<a href = https://randtwguy.github.io/RandTWGuy.net/>MY WEBSITE</a>
+  </body>
+</html>
